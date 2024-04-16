@@ -1,7 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
+
+import { Card, CardMedia, CardContent, CardActionArea, Box, Typography } from '@mui/material/';
+
 import axios from 'axios';
+
 import HeaderComponent from '../components/HeaderComponent';
+
+
+
 
 const PaginationPage = () => {
     const { page_number } = useParams();
@@ -29,15 +36,23 @@ const PaginationPage = () => {
     return (
         <>
             <HeaderComponent />
-            {data.results.map(movie => (
-                <div key={movie.id}>
-                  <h1>{movie.id}</h1>
-                  <h2>{movie.title}</h2>
-                  <h3>{movie.description}</h3>
-                  <img src={movie.image} alt={movie.title} />
-                </div>
-              ))}
-            <h1>{data.count}</h1>
+            <Box sx={{ display: 'flex'}}>
+              {data.results.map(movie => (
+                  <Card key={movie.id} sx={{ maxWidth: 345, margin: '1%', width: '20%' }}>
+                    <CardActionArea href={`/movie/${movie.title}`}>
+                      <CardMedia
+                        sx={{height: '50vh'}}
+                        component='img'
+                        image={movie.image}
+                      />
+                      <CardContent>
+                        <Typography variant='h5'>{movie.title}</Typography>
+                      </CardContent>
+                    </CardActionArea> 
+                  </Card>
+                ))}
+              <Typography>{data.count}</Typography>
+            </Box>
         </>
     );
 };
