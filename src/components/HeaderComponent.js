@@ -1,17 +1,17 @@
 import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-// #c4a61e
+// #e0c931 #c4a61e
 const HeaderComponent = () => {
     return (
-    <AppBar position="static" style={{backgroundColor: '#e0c931'}}>
+    <AppBar position="static" style={{backgroundColor: '#B3C8CF'}}>
         <Toolbar>
             <Box sx={{width: '15%', display: 'flex'}}>          
                     <Typography variant="h5">
                         
                         Movie App
                     </Typography>
-            </Box>
-            <Box sx={{ backgroundColor: '#c4a61e', height: '5vh'}}>
+            </Box>                      
+            <Box sx={{ backgroundColor: '#BED7DC', height: '5vh'}}>
                 <TextField
                     variant="outlined"
                     placeholder="Search"
