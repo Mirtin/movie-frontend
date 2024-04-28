@@ -16,7 +16,7 @@ const PaginationPage = () => {
     const [data, setData] = useState({ count: 0, next: null, previous: null, results: [] });
 
     const getMovieData = (page_number) => {
-      axios.get(`http://127.0.0.1:8000/api/movie_list/?page=${page_number}&page_size=2`)
+      axios.get(`http://127.0.0.1:8000/api/movie_list/?page=${page_number}&page_size=4`)
         .then(res => {
           const responseData = res.data;
           setData(responseData);
@@ -51,7 +51,6 @@ const PaginationPage = () => {
                     </CardActionArea> 
                   </Card>
                 ))}
-              <Typography>{data.count}</Typography>
             </Box>
         </>
     );

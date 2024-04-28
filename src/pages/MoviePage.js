@@ -1,14 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState} from 'react';
-import HeaderComponent from '../components/HeaderComponent';
+
 import { Box, Typography } from '@mui/material/';
 import axios from 'axios';
+
+import HeaderComponent from '../components/HeaderComponent';
+import RatingStarsComponent from "../components/RatingStarsComponent";
+import TrailerPlayerComponent from "../components/TrailerPlayerComponent";
+
 
 const MoviePage = () => {
 
     const { movie_title } = useParams();
 
-    const [data, setData] = useState({ id: 0, title: null, description: null, image: null });
+    const [data, setData] = useState({ id: 0, title: null, description: null, image: null, trailer: null });
 
     const getMovieData = (movie_title) => {
         axios.get(`http://127.0.0.1:8000/api/movie/${movie_title}`)
@@ -30,19 +35,32 @@ const MoviePage = () => {
         <>
             <HeaderComponent />
             <Box sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
                 padding: 2,
-                height: "60vh"
+                height: "60vh",
+                display: "flex",
+                justifyContent: "center",
                 }}>
-                <img src={data.image} alt={data.title} style={{borderRadius: "5%"}}/>
-                <Typography variant='h3'>{data.title}</Typography>
-                <Typography variant='h1'>5</Typography>
-            </Box>
-                <Typography variant='h4'>{data.description}</Typography>
-            <Box>
 
+              <Box sx={{height: "100%", width: '30%'}}>  
+                <img src={data.image} alt={data.title} style={{borderRadius: "5%", height: "80%"}}/>
+                <RatingStarsComponent />
+                <Typography variant='h3'>{data.title}</Typography>
+              </Box>
+
+              <Box sx={{
+                height: "100%", 
+                width: '70%',
+                display: "flex",
+                justifyContent: "center" 
+                }}>
+              <TrailerPlayerComponent url={data.trailer} />
+              </Box>
+
+            </Box>
+
+
+            <Box sx={{backgroundColor: "#E5DDC5", height: "27vh"}}>
+              <Typography variant='h4'>{data.description}</Typography>
             </Box>
         </>
     );
