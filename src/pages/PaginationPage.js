@@ -16,7 +16,7 @@ const PaginationPage = () => {
     const [data, setData] = useState({ count: 0, next: null, previous: null, results: [] });
 
     const getMovieData = (page_number) => {
-      axios.get(`http://127.0.0.1:8000/api/movie_list/?page=${page_number}&page_size=4`)
+      axios.get(`http://127.0.0.1:8000/api/movie_list/?page=${page_number}&page_size=10`)
         .then(res => {
           const responseData = res.data;
           setData(responseData);
@@ -36,9 +36,14 @@ const PaginationPage = () => {
     return (
         <>
             <HeaderComponent />
-            <Box sx={{ display: 'flex'}}>
+            <Box sx={{ 
+              display: 'grid',
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              padding: "1%",
+              gap: "1%"
+              }}>
               {data.results.map(movie => (
-                  <Card key={movie.id} sx={{ maxWidth: 345, margin: '1%', width: '20%' }}>
+                  <Card key={movie.id} sx={{  maxWidth: 345}}>
                     <CardActionArea href={`/movie/${movie.title}`}>
                       <CardMedia
                         sx={{height: '50vh'}}
