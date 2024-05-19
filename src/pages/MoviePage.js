@@ -53,7 +53,7 @@ const MoviePage = () => {
             }}>
                 <Box sx={{ height: "100%", width: '30%' }}>
                     <img src={data.image} alt={data.title} style={{ borderRadius: "5%", height: "80%" }} />
-                    <RatingStarsComponent averageRating={averageRating} />
+                    <RatingStarsComponent averageRating={averageRating} movie_title={movie_title} />
                     <Typography variant='h3'>{data.title}</Typography>
                 </Box>
                 <Box sx={{
