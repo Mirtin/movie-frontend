@@ -31,8 +31,11 @@ function roundToNearestHalf(value) {
 
 
 const rateMovie = (movie_title, rating) => {
-  axios.post(`http://127.0.0.1:8000/api/ratemovie/${movie_title}`, {user: 'Jo', rating: rating, secret_key: 'secret_key'})
-      .then(res => {
+  axios.post(`http://127.0.0.1:8000/api/ratemovie/${movie_title}/`, {
+      user: 'Jo',
+      rating: rating,
+      secret_key: 'secret_key'
+    }).then(res => {
           const responseData = res.data;
           console.log(responseData)
       })
@@ -67,6 +70,7 @@ const RatingStarsComponent = ({averageRating, movie_title}) => {
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
+          rateMovie(movie_title, roundToNearestHalf(newValue));
           setValue(newValue);
         }}
         onChangeActive={(event, newHover) => {
