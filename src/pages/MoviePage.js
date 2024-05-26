@@ -8,6 +8,7 @@ import HeaderComponent from '../components/HeaderComponent';
 import RatingStarsComponent from "../components/RatingStarsComponent";
 import TrailerPlayerComponent from "../components/TrailerPlayerComponent";
 
+
 const MoviePage = () => {
     const { movie_title } = useParams();
 
