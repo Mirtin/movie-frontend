@@ -10,17 +10,31 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 export default function LoginPage() {
+  const navigate = useNavigate();
+
+  const loginUser = (data) => {
+    axios.post("http://127.0.0.1:8000/accounts/token/", data)
+      .then(res => {
+        const responseData = res.data;
+        localStorage.setItem('access_token', responseData.access);
+        localStorage.setItem('refresh_token', responseData.refresh);
+        console.log(responseData);
+        navigate("/");
+      })
+      .catch(error => {
+        console.error('Error fetching movie data:', error);
+      });
+  };
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    loginUser(data);
   };
 
   return (
@@ -46,10 +60,10 @@ export default function LoginPage() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
               autoFocus
               sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}
             />

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import PaginationPage from './pages/PaginationPage';
 import MoviePage from './pages/MoviePage';
 import BasePage from './pages/BasePage';
@@ -7,6 +8,7 @@ import LoginPage from './pages/accounts/LoginPage';
 import RegistrationPage from './pages/accounts/RegistrationPage';
 
 import './App.css'
+
 
 
 const App = () => {

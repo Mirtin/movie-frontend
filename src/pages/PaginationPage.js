@@ -6,7 +6,7 @@ import { Card, CardMedia, CardContent, CardActionArea, Box, Typography } from '@
 import axios from 'axios';
 
 import HeaderComponent from '../components/HeaderComponent';
-
+import getCurrentUser from "../functions/getCurrentUser";
 
 
 
@@ -14,6 +14,7 @@ const PaginationPage = () => {
     const { page_number } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState({ count: 0, next: null, previous: null, results: [] });
+
 
     const getMovieData = (page_number) => {
       axios.get(`http://127.0.0.1:8000/api/movie_list/?page=${page_number}&page_size=10`)
@@ -31,6 +32,7 @@ const PaginationPage = () => {
         return navigate('/');
       }
       getMovieData(page_number);
+      getCurrentUser();
     }, [navigate, page_number]);
   
     return (
