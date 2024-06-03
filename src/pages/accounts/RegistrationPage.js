@@ -10,16 +10,32 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegistrationPage = () => {
+  const navigate = useNavigate();
+
+  const registerUser = (data) => {
+    axios.post("http://127.0.0.1:8000/accounts/register/", data)
+      .then(res => {
+        const responseData = res.data;
+        console.log(responseData);
+        navigate("/accounts/login");
+      })
+      .catch(error => {
+        console.error('Error fetching movie data:', error);
+      });
+  };
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    registerUser(data);
+
   };
 
   return (
@@ -40,27 +56,16 @@ const RegistrationPage = () => {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+              <Grid item xs={12} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="username"
+                    label="username"
+                    name="username"
+                    autoComplete="username"
+                  />
+                </Grid>
               <Grid item xs={12} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
                 <TextField
                   required
