@@ -1,21 +1,25 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { 
+  Avatar, 
+  Button, 
+  TextField, 
+  FormControlLabel, 
+  Checkbox, 
+  Link, 
+  Grid, 
+  Box, 
+  Typography, 
+  Container,
+  Alert, 
+} from '@mui/material';
+import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
+  const [errorMessage , seterrorMessage ] = useState('');
 
   const registerUser = (data) => {
     axios.post("http://127.0.0.1:8000/accounts/register/", data)
@@ -25,7 +29,7 @@ const RegistrationPage = () => {
         navigate("/accounts/login");
       })
       .catch(error => {
-        console.error('Error fetching movie data:', error);
+        seterrorMessage(Object.values(error.response.data));
       });
   };
 
@@ -61,9 +65,9 @@ const RegistrationPage = () => {
                     required
                     fullWidth
                     id="username"
-                    label="username"
+                    label="Username"
                     name="username"
-                    autoComplete="username"
+                    autoComplete="off"
                   />
                 </Grid>
               <Grid item xs={12} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
@@ -73,7 +77,7 @@ const RegistrationPage = () => {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
@@ -84,14 +88,21 @@ const RegistrationPage = () => {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  autoComplete="off"
+                />
+              </Grid>
+              <Grid item xs={12} sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password_confirm"
+                  label="Password confirm"
+                  type="password"
+                  id="password_confirm"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
               </Grid>
             </Grid>
             <Button
@@ -102,6 +113,11 @@ const RegistrationPage = () => {
             >
               Sign Up
             </Button>
+            {errorMessage && (
+              <Alert severity="warning" variant='filled' align="center">
+                {errorMessage}
+              </Alert>
+            )}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/accounts/login" variant="body2">

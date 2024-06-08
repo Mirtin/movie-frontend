@@ -1,19 +1,26 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { 
+  Avatar, 
+  Button, 
+  TextField, 
+  FormControlLabel, 
+  Checkbox, 
+  Link, 
+  Grid, 
+  Box, 
+  Typography, 
+  Container,
+  Alert, 
+} from '@mui/material';
+import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [errorMessage , seterrorMessage ] = useState('');
+
 
   const loginUser = (data) => {
     axios.post("http://127.0.0.1:8000/accounts/token/", data)
@@ -25,7 +32,7 @@ export default function LoginPage() {
         navigate("/");
       })
       .catch(error => {
-        console.error('Error fetching movie data:', error);
+        seterrorMessage(error.response.data.detail);
       });
   };
 
@@ -63,7 +70,7 @@ export default function LoginPage() {
               id="username"
               label="username"
               name="username"
-              autoComplete="username"
+              autoComplete="off"
               autoFocus
               sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}
             />
@@ -75,12 +82,8 @@ export default function LoginPage() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete="off"
               sx={{'& .MuiOutlinedInput-root': { backgroundColor: '#E5DDC5'}}}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
@@ -90,6 +93,11 @@ export default function LoginPage() {
             >
               Sign In
             </Button>
+            {errorMessage && (
+              <Alert severity="warning" variant='filled' align="center">
+                {errorMessage}
+              </Alert>
+            )}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
