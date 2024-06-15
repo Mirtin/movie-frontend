@@ -6,7 +6,7 @@ import { Card, CardMedia, CardContent, CardActionArea, Box, Typography } from '@
 import axios from 'axios';
 
 import HeaderComponent from '../components/HeaderComponent';
-import getCurrentUser from "../functions/getCurrentUser";
+
 
 
 
@@ -32,7 +32,6 @@ const PaginationPage = () => {
         return navigate('/');
       }
       getMovieData(page_number);
-      getCurrentUser();
     }, [navigate, page_number]);
   
     return (

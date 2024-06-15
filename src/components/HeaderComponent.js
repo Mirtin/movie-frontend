@@ -1,9 +1,11 @@
 import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AvatarComponent from "./AvatarComponent";
+import Cookies from "universal-cookie";
 
-// #e0c931 #c4a61e
 const HeaderComponent = () => {
+    const cookies = new Cookies();
+
     return (
     <AppBar position="static" style={{backgroundColor: '#B3C8CF'}}>
         <Toolbar>
@@ -29,7 +31,7 @@ const HeaderComponent = () => {
                 />
             </Box>
             <Box sx={{position: 'absolute', right: '3%'}}>
-                <AvatarComponent />
+                <AvatarComponent IsAuthenticated={(cookies.get("access") != undefined)} />
             </Box>
 
         </Toolbar>

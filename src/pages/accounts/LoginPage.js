@@ -15,20 +15,24 @@ import {
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import getCurrentUser from "../../functions/getCurrentUser";
 
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [errorMessage , seterrorMessage ] = useState('');
-
+  const cookies = new Cookies();
 
   const loginUser = (data) => {
     axios.post("http://127.0.0.1:8000/accounts/token/", data)
       .then(res => {
         const responseData = res.data;
-        localStorage.setItem('access_token', responseData.access);
-        localStorage.setItem('refresh_token', responseData.refresh);
+        cookies.set('access', responseData.access, { path: '/', expires: new Date(Date.now() + 3600000) });
+        cookies.set('refresh', responseData.refresh, { path: '/', expires: new Date(Date.now() + 3600000) });
         console.log(responseData);
+        getCurrentUser();
+        console.log(cookies.getAll());
         navigate("/");
       })
       .catch(error => {
