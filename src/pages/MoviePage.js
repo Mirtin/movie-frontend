@@ -44,7 +44,7 @@ const MoviePage = () => {
 
 
     return (
-        <>
+        <Box>
             <HeaderComponent />
             <Box sx={{
                 padding: 2,
@@ -69,7 +69,7 @@ const MoviePage = () => {
             <Box sx={{ backgroundColor: "#E5DDC5", height: "27vh" }}>
                 <Typography variant='h4'>{data.description}</Typography>
             </Box>
-        </>
+        </Box>
     );
 };
 

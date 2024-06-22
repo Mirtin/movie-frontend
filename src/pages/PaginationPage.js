@@ -35,7 +35,7 @@ const PaginationPage = () => {
     }, [navigate, page_number]);
   
     return (
-        <>
+        <Box>
             <HeaderComponent />
             <Box sx={{ 
               display: 'grid',
@@ -58,7 +58,7 @@ const PaginationPage = () => {
                   </Card>
                 ))}
             </Box>
-        </>
+        </Box>
     );
 };
 

@@ -6,6 +6,7 @@ import BasePage from './pages/BasePage';
 
 import LoginPage from './pages/accounts/LoginPage';
 import RegistrationPage from './pages/accounts/RegistrationPage';
+import ProfilePage from './pages/accounts/ProfilePage';
 
 import './App.css'
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path='movie/:movie_title' element={<MoviePage />} />
           <Route path='accounts/registration' element={<RegistrationPage />} />
           <Route path='accounts/login' element={<LoginPage />} />
+          <Route path='accounts/profile' element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </div>
