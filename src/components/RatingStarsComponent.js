@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 
 const labels = {
@@ -31,13 +32,13 @@ function roundToNearestHalf(value) {
 
 
 const rateMovie = (movie_title, rating) => {
-  axios.post(`http://127.0.0.1:8000/api/ratemovie/${movie_title}/`, {
-      user: 'Jo',
-      rating: rating,
-      secret_key: 'secret_key'
-    }).then(res => {
+  const cookies = new Cookies();
+
+  axios.post(`http://127.0.0.1:8000/api/rate_movie/${movie_title}/`,
+    {rating: rating},
+    {headers: {"Authorization": `Bearer ${cookies.get('access')}`}},
+    ).then(res => {
           const responseData = res.data;
-          console.log(responseData)
       })
       .catch(error => {
           console.error('Error fetching movie data:', error);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, IconButton, Avatar, Menu, MenuItem, Typography, Button } from '@mui/material';
+import { Box, IconButton, Avatar, Menu, MenuItem, Typography, ListItemText } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Cookies from 'universal-cookie';
 
@@ -36,7 +36,7 @@ const AvatarComponent = ({ IsAuthenticated }) => {
         onClose={handleClose}
       >
       {IsAuthenticated ? (<Box>
-        <MenuItem onClick={handleClose}><Typography>{cookies.get('username')}</Typography></MenuItem>
+        <ListItemText sx={{display: 'flex', justifyContent: 'center'}}><Typography>{cookies.get('username')}</Typography></ListItemText>
         <MenuItem onClick={handleClose}>
           <Link to="/accounts/profile" style={{ textDecoration: 'none', color: 'inherit' }}>Profile Page</Link>
         </MenuItem>
