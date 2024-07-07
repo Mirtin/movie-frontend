@@ -31,22 +31,8 @@ function roundToNearestHalf(value) {
 }
 
 
-const rateMovie = (movie_title, rating) => {
-  const cookies = new Cookies();
 
-  axios.post(`http://127.0.0.1:8000/api/rate_movie/${movie_title}/`,
-    {rating: rating},
-    {headers: {"Authorization": `Bearer ${cookies.get('access')}`}},
-    ).then(res => {
-          const responseData = res.data;
-      })
-      .catch(error => {
-          console.error('Error fetching movie data:', error);
-      });
-};
-
-
-const RatingStarsComponent = ({averageRating, movie_title}) => {
+const RatingStarsComponent = ({averageRating, movie_title, func}) => {
   const [value, setValue] = useState(averageRating);
   const [hover, setHover] = useState(-1);
 
@@ -71,7 +57,7 @@ const RatingStarsComponent = ({averageRating, movie_title}) => {
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
-          rateMovie(movie_title, roundToNearestHalf(newValue));
+          func(roundToNearestHalf(newValue));
           setValue(newValue);
         }}
         onChangeActive={(event, newHover) => {
