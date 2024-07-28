@@ -7,7 +7,6 @@ const TrailerPlayerComponent = ({url}) => {
         url={url}
         width="80%"
         height="auto"
-        playing
         loop
         volume={0.5}
         controls

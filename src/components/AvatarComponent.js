@@ -9,8 +9,10 @@ const AvatarComponent = ({ IsAuthenticated }) => {
   const cookies = new Cookies();
 
   const handleLogout = () => {
-    cookies.remove('access', { path: '/' });
-    cookies.remove('refresh', { path: '/' });
+    const allCookie = cookies.getAll();
+    Object.keys(allCookie).forEach(cookieName => {
+      cookies.remove(cookieName, {path: '/'})
+    })
     window.location.reload();
   };
 
@@ -25,7 +27,7 @@ const AvatarComponent = ({ IsAuthenticated }) => {
   return (
     <Box>
       <IconButton onClick={handleClick}>
-        <Avatar>
+        <Avatar src={`http://127.0.0.1:8000${cookies.get('avatar')}`}>
           <AccountCircleIcon />
         </Avatar>
       </IconButton>

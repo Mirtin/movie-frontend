@@ -30,9 +30,7 @@ export default function LoginPage() {
         const responseData = res.data;
         cookies.set('access', responseData.access, { path: '/', expires: new Date(Date.now() + 3600000) });
         cookies.set('refresh', responseData.refresh, { path: '/', expires: new Date(Date.now() + 3600000) });
-        console.log(responseData);
         getCurrentUser();
-        console.log(cookies.getAll());
         navigate("/");
       })
       .catch(error => {

@@ -32,7 +32,7 @@ function roundToNearestHalf(value) {
 
 
 
-const RatingStarsComponent = ({averageRating, movie_title, func}) => {
+const RatingStarsComponent = ({averageRating, func}) => {
   const [value, setValue] = useState(averageRating);
   const [hover, setHover] = useState(-1);
 

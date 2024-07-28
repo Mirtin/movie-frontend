@@ -40,11 +40,12 @@ const PaginationPage = () => {
             <Box sx={{ 
               display: 'grid',
               gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              padding: "1%",
-              gap: "1%"
+              alignItems: 'center',
+              padding: "15px",
+              gap: "15px"
               }}>
               {data.results.map(movie => (
-                  <Card key={movie.id} sx={{  maxWidth: 345}}>
+                  <Card key={movie.id}>
                     <CardActionArea href={`/movie/${movie.title}`}>
                       <CardMedia
                         sx={{height: '50vh'}}
@@ -52,7 +53,7 @@ const PaginationPage = () => {
                         image={movie.image}
                       />
                       <CardContent>
-                        <Typography variant='h5'>{movie.title}</Typography>
+                        <Typography variant='h5' sx={{whiteSpace: 'nowrap'}}>{movie.title}</Typography>
                       </CardContent>
                     </CardActionArea> 
                   </Card>

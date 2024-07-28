@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { Box, Button, Card, CardMedia, CardContent, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, CardContent, CardActionArea, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
-const HorizontalScrollerComponent = () => {
+const HorizontalScrollerComponent = ({data = null}) => {
   const scrollerRef = useRef(null);
   const [scrollAmount, setScrollAmount] = useState(0);
 
@@ -23,22 +23,26 @@ const HorizontalScrollerComponent = () => {
   };
 
   return (
-    <Box display="flex" alignItems="center" sx={{width: "100%", height: "100%",backgroundColor: '#E5DDC5'}}>
+    <Box display="flex" alignItems="center" sx={{width: "100%", maxHeight: "100%",backgroundColor: '#E5DDC5'}}>
       <Button variant="contained" onClick={scrollLeft} sx={{ height: "100%", backgroundColor: '#B3C8CF'}}><ArrowBackIosIcon /></Button>
-      <Box ref={scrollerRef} overflow="hidden" sx={{height: "100%"}}  mx={2} >
-        <Box display="flex" sx={{height: "100%"}}>
-          {Array.from({ length: 20 }, (_, index) => (
-            <Card mx={0.5} sx={{height: "100%", minWidth: "30%"}}>
-               <CardMedia
-                  sx={{height: "80%"}}
-                  component='img'
-                  image={'https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcSbqp7csGgz5CIfQm5MGhXXXTzn4E1pQaj-xz7vd2plu1NbIZlrPpSUwQpUyO60W0s3'}
-                />
-                <CardContent>
-                  <Typography variant='h5'>{index + 1}</Typography>
-                </CardContent>
-            </Card>
-          ))}
+      <Box ref={scrollerRef} overflow="hidden" sx={{height: "100%", width: "90%", minWidth: "200px"}}  mx={2} >
+        <Box display="flex" sx={{height: "100%", gap: 0.5}}>
+          {data && (
+            data.map((item, index) => (
+              <Card key={index} mx={0.5} sx={{height: "100%", minWidth: "200px"}}>
+                <CardActionArea sx={{height: "100%", minWidth: "100%"}}  href={`/movie/${item.movie.title}`}>
+                  <CardMedia
+                      sx={{height: "80%"}}
+                      component='img'
+                      image={item.movie.image}
+                    />
+                    <CardContent>
+                      <Typography variant='h6' sx={{whiteSpace: 'nowrap'}}>{item.movie.title}</Typography>
+                    </CardContent>
+                </CardActionArea>
+              </Card>
+          )))
+        } 
         </Box>
       </Box>
       <Button variant="contained" onClick={scrollRight} sx={{ height: "100%", backgroundColor: '#B3C8CF'}}><ArrowForwardIosIcon /></Button>
