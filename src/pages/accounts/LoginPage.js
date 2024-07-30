@@ -16,7 +16,6 @@ import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import getCurrentUser from "../../functions/getCurrentUser";
 
 
 export default function LoginPage() {
@@ -30,7 +29,6 @@ export default function LoginPage() {
         const responseData = res.data;
         cookies.set('access', responseData.access, { path: '/', expires: new Date(Date.now() + 3600000) });
         cookies.set('refresh', responseData.refresh, { path: '/', expires: new Date(Date.now() + 3600000) });
-        getCurrentUser();
         navigate("/");
       })
       .catch(error => {

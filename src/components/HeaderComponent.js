@@ -1,4 +1,5 @@
 import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment, Box } from "@mui/material";
+
 import { Link } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import AvatarComponent from "./AvatarComponent";
@@ -6,6 +7,8 @@ import Cookies from "universal-cookie";
 
 const HeaderComponent = ({SearchBar}) => {
     const cookies = new Cookies();
+
+    
 
     return (
     <AppBar position="static" style={{backgroundColor: '#B3C8CF'}}>
