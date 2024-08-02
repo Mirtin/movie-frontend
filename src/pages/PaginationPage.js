@@ -13,7 +13,7 @@ import HeaderComponent from '../components/HeaderComponent';
 const PaginationPage = () => {
   const { page_number } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState({ count: 0, next: null, previous: null, results: [] });
+  const [data, setData] = useState(null);
   const PAGE_SIZE = 10
 
 
@@ -41,34 +41,38 @@ const PaginationPage = () => {
   }, [navigate, page_number]);
 
   return (
-    <Box>
+    <>
         <HeaderComponent />
-        <Box sx={{ 
-          display: 'grid',
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          alignItems: 'center',
-          padding: "15px",
-          gap: "15px"
-          }}>
-          {data.results.map(movie => (
-              <Card key={movie.id}>
-                <CardActionArea href={`/movie/${movie.title}`}>
-                  <CardMedia
-                    sx={{height: '50vh'}}
-                    component='img'
-                    image={movie.image}
-                  />
-                  <CardContent>
-                    <Typography variant='h5' sx={{whiteSpace: 'nowrap'}}>{movie.title}</Typography>
-                  </CardContent>
-                </CardActionArea> 
-              </Card>
-            ))}
-        </Box>
-        <Box sx={{display: 'felex', width: '100%', height: '15vh', justifyContent: 'center', alignItems: 'center'}}>
-          <Pagination count={Math.ceil(data.count/PAGE_SIZE)} onChange={handlePaginationClick} size="large" />
-        </Box>
-    </Box>
+        {data ? (
+          <>
+            <Box sx={{ 
+              display: 'grid',
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              alignItems: 'center',
+              padding: "15px",
+              gap: "15px"
+              }}>
+              {data.results.map(movie => (
+                  <Card key={movie.id}>
+                    <CardActionArea href={`/movie/${movie.title}`}>
+                      <CardMedia
+                        sx={{height: '50vh'}}
+                        component='img'
+                        image={movie.image}
+                      />
+                      <CardContent>
+                        <Typography variant='h5' sx={{whiteSpace: 'nowrap'}}>{movie.title}</Typography>
+                      </CardContent>
+                    </CardActionArea> 
+                  </Card>
+                ))}
+            </Box>
+            <Box sx={{display: 'felex', width: '100%', height: '15vh', justifyContent: 'center', alignItems: 'center'}}>
+              <Pagination count={Math.ceil(data.count/PAGE_SIZE)} onChange={handlePaginationClick} size="large" />
+            </Box>
+          </>
+        ) : (<Typography fontSize={20}>Loading...</Typography>)}
+    </>
   );
 };
 

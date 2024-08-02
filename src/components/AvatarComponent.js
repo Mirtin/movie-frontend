@@ -10,6 +10,7 @@ import getCurrentUser from "../functions/getCurrentUser"
 const AvatarComponent = ({ IsAuthenticated }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [Isloading, setIsloading] = useState(false);
   const cookies = new Cookies();
 
   const handleLogout = () => {
@@ -31,18 +32,20 @@ const AvatarComponent = ({ IsAuthenticated }) => {
   useEffect(() => {
     getCurrentUser().then(userData => {
         setUserData(userData);
+        setIsloading(true);
+        console.log(userData)
     });
-  })
+  }, [])
 
   return (
+    
     <>
-      {userData ? (
+    {Isloading ? (
         <Box>
           <IconButton onClick={handleClick}>
-            
-            <Avatar src={`http://127.0.0.1:8000${userData.profile.avatar}`}>
-              <AccountCircleIcon />
-            </Avatar>
+          {IsAuthenticated && userData.profile.avatar ? (
+            <Avatar src={`http://127.0.0.1:8000${userData.profile.avatar}`} />
+          ) : (<AccountCircleIcon />)}
           </IconButton>
           <Menu
             id="avatar-menu"
@@ -57,7 +60,7 @@ const AvatarComponent = ({ IsAuthenticated }) => {
             </MenuItem>
             <MenuItem onClick={handleClose}><Typography component={'span'} onClick={handleLogout}>Logout</Typography></MenuItem>
             </Box>
-          ):(<Box>
+          ) : (<Box>
             <MenuItem onClick={handleClose}>
               <Link to="/accounts/registration" style={{ textDecoration: 'none', color: 'inherit' }}>Register</Link>
             </MenuItem>
@@ -68,7 +71,7 @@ const AvatarComponent = ({ IsAuthenticated }) => {
             
           </Menu>
         </Box>
-      ) : (<Typography fontSize={20}>Loading...</Typography>)}  
+    ):(<Typography>g</Typography>)} 
     </>  
   );
 };

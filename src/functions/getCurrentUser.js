@@ -13,7 +13,7 @@ const getCurrentUser = () => {
       throw error;
     });
   } else {
-    return Promise.resolve(null);
+    return Promise.resolve(0);
   }
 };
 

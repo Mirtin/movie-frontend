@@ -38,6 +38,11 @@ const RegistrationPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    if (!data.get('username') || !data.get('email') || !data.get('password') || !data.get('password_confirm')) {
+      seterrorMessage('All fields are required.');
+      return 0;
+    }
     registerUser(data);
 
   };

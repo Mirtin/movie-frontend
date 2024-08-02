@@ -80,7 +80,7 @@ const ProfilePage = () => {
             });
 
         }
-    }, [cookies, navigate]);
+    }, []);
     return (
         <>
         {userData ? (
