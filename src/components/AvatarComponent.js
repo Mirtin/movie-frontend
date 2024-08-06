@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Box, IconButton, Avatar, Menu, MenuItem, Typography, ListItemText } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Cookies from 'universal-cookie';
@@ -10,7 +9,7 @@ import getCurrentUser from "../functions/getCurrentUser"
 const AvatarComponent = ({ IsAuthenticated }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [Isloading, setIsloading] = useState(false);
+  const [Isloaded, setIsloaded] = useState(false);
   const cookies = new Cookies();
 
   const handleLogout = () => {
@@ -32,7 +31,7 @@ const AvatarComponent = ({ IsAuthenticated }) => {
   useEffect(() => {
     getCurrentUser().then(userData => {
         setUserData(userData);
-        setIsloading(true);
+        setIsloaded(true);
         console.log(userData)
     });
   }, [])
@@ -40,7 +39,7 @@ const AvatarComponent = ({ IsAuthenticated }) => {
   return (
     
     <>
-    {Isloading ? (
+    {Isloaded ? (
         <Box>
           <IconButton onClick={handleClick}>
           {IsAuthenticated && userData.profile.avatar ? (
@@ -53,25 +52,30 @@ const AvatarComponent = ({ IsAuthenticated }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-          {IsAuthenticated ? (<Box>
-            <ListItemText sx={{display: 'flex', justifyContent: 'center'}}><Typography>{userData.username}</Typography></ListItemText>
-            <MenuItem onClick={handleClose}>
-              <Link to="/accounts/profile" style={{ textDecoration: 'none', color: 'inherit' }}>Profile Page</Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose}><Typography component={'span'} onClick={handleLogout}>Logout</Typography></MenuItem>
+          {IsAuthenticated && userData ? (
+            <Box>
+              <ListItemText sx={{display: 'flex', justifyContent: 'center'}}><Typography>{userData.username}</Typography></ListItemText>
+              <MenuItem onClick={handleClose} component="a" href="/accounts/profile">
+                  Profile Page
+              </MenuItem>
+              <MenuItem onClick={handleLogout} component="a" href="">
+                Logout
+              </MenuItem>
             </Box>
-          ) : (<Box>
-            <MenuItem onClick={handleClose}>
-              <Link to="/accounts/registration" style={{ textDecoration: 'none', color: 'inherit' }}>Register</Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Link to="/accounts/login" style={{ textDecoration: 'none', color: 'inherit' }}>login</Link>
-            </MenuItem>
-            </Box>)}
+          ) : (
+            <Box>
+              <MenuItem onClick={handleClose} component="a" href="/accounts/registration">
+                Register
+              </MenuItem>
+              <MenuItem onClick={handleClose} component="a" href="/accounts/login">
+                Login
+              </MenuItem>
+            </Box>
+          )}
             
           </Menu>
         </Box>
-    ):(<Typography>g</Typography>)} 
+    ):(<Typography>Loading</Typography>)} 
     </>  
   );
 };

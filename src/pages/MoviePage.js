@@ -16,7 +16,7 @@ const MoviePage = () => {
     const { movie_title } = useParams();
     const navigate = useNavigate();
     const cookies = useMemo(() => new Cookies(), []);
-    const [data, setData] = useState({ id: 0, title: null, description: null, image: null, trailer: null });
+    const [data, setData] = useState(null);
     const [averageRating, setAverageRating] = useState(null);
     const [isSaved, setIsSaved] = useState(false);
 
@@ -118,58 +118,60 @@ const MoviePage = () => {
 
 
     return (
+
         <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <HeaderComponent />
+            <HeaderComponent />
+            {data ? (
+                <>
+                    <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <Box sx={{ height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 2 }}>
+                            <Box sx={{ width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <img src={data.image} alt={data.title} style={{ borderRadius: '5%', width: '50%' }} />
+                                <Box sx={{display: 'flex'}}>
+                                    {isSaved ? (
+                                        <IconButton onClick={handleBookMarkClick}>
+                                                <BookmarkIcon />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton onClick={handleBookMarkClick}>
+                                            <BookmarkBorderIcon />
+                                        </IconButton>
+
+                                        )
+                                    }
+                                    <RatingStarsComponent averageRating={averageRating} func={rateMovie} />
+                                </Box>    
+                                <Typography variant='h3' sx={{ textAlign: 'center', fontSize: `${600 / data.title.length}px`}}>{data.title}</Typography>
+                            </Box>
+                            <Box sx={{ width: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <TrailerPlayerComponent url={data.trailer} />
+                            </Box>
+                        </Box>
 
 
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <Box sx={{backgroundColor: '#E5DDC5',
+                                minHeight: '27vh', 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'center', 
+                                padding: 2,
+                                position: 'relative',
 
-        <Box sx={{ height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 2 }}>
-          <Box sx={{ width: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <img src={data.image} alt={data.title} style={{ borderRadius: '5%', width: '50%' }} />
-            <Box sx={{display: 'flex'}}>
-                {isSaved ? (
-                        <IconButton onClick={handleBookMarkClick}>
-                            <BookmarkIcon />
-                        </IconButton>
-                    ) : (
-                        <IconButton onClick={handleBookMarkClick}>
-                            <BookmarkBorderIcon />
-                        </IconButton>
-
-                    )
-                }
-                <RatingStarsComponent averageRating={averageRating} func={rateMovie} />
-            </Box>    
-            <Typography variant='h3' sx={{ textAlign: 'center' }}>{data.title}</Typography>
-          </Box>
-          <Box sx={{ width: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <TrailerPlayerComponent url={data.trailer} />
-          </Box>
+                                '&::before' : {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: '10px', 
+                                    background: 'linear-gradient(to bottom, #F1EEDC, transparent)',
+                                }}}>
+                            <Typography variant='h4' sx={{ textAlign: 'center', maxWidth: '80%' }}>{data.description}</Typography>
+                        </Box>
+                    </Box>
+                </>
+                ) : (<Typography fontSize={20}>Loading...</Typography>)}
         </Box>
-
-
-        <Box sx={{backgroundColor: '#E5DDC5',
-                minHeight: '27vh', 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                padding: 2,
-                position: 'relative',
-
-                '&::before' : {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '10px', 
-                    background: 'linear-gradient(to bottom, #F1EEDC, transparent)',
-                }}}>
-          <Typography variant='h4' sx={{ textAlign: 'center', maxWidth: '80%' }}>{data.description}</Typography>
-        </Box>
-      </Box>
-    </Box>
     );
 };
 

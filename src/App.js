@@ -7,6 +7,7 @@ import BasePage from './pages/BasePage';
 import LoginPage from './pages/accounts/LoginPage';
 import RegistrationPage from './pages/accounts/RegistrationPage';
 import ProfilePage from './pages/accounts/ProfilePage';
+import NotFoundPage from './pages/NotFoundPage';
 
 import './App.css'
 
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='accounts/registration' element={<RegistrationPage />} />
           <Route path='accounts/login' element={<LoginPage />} />
           <Route path='accounts/profile' element={<ProfilePage />} />
+          <Route path='*' element={<NotFoundPage /> } />
         </Routes>
       </BrowserRouter>
     </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Card, CardMedia, CardContent, CardActionArea, Box, Typography, Pagination } from '@mui/material/';
 
-import axios from 'axios';
+import axios from '../axiosInstance'
 
 import HeaderComponent from '../components/HeaderComponent';
 
@@ -47,7 +47,7 @@ const PaginationPage = () => {
           <>
             <Box sx={{ 
               display: 'grid',
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
               alignItems: 'center',
               padding: "15px",
               gap: "15px"
@@ -61,7 +61,7 @@ const PaginationPage = () => {
                         image={movie.image}
                       />
                       <CardContent>
-                        <Typography variant='h5' sx={{whiteSpace: 'nowrap'}}>{movie.title}</Typography>
+                        <Typography variant='h5' sx={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{movie.title}</Typography>
                       </CardContent>
                     </CardActionArea> 
                   </Card>
