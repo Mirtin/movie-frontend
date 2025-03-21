@@ -32,6 +32,3 @@ step 2: Run project
 npm start
 ```
 
-## Authors
-
-- [@Mirtin](https://www.github.com/Mirtin)
